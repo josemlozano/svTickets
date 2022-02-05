@@ -1,0 +1,6 @@
+{
+	"appId": "com.josemu.svTickets",
+	"appName": "svTickets",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

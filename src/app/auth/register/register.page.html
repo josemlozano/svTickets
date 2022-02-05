@@ -1,0 +1,73 @@
+<!-- Back button with a default href -->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create an account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Create an account</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form #registerForm="ngForm" (ngSubmit)="createUser()">
+    <ion-list>
+
+      <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input type="text" name="name" [(ngModel)]="user.name" pattern="[A-Za-z ]+" #nameModel="ngModel"
+          [ngClass]="validateClasses(nameModel, 'is-valid', 'is-invalid')"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" name="email" inputmode="email" [(ngModel)]="email1Form" required
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Repeat Email</ion-label>
+        <ion-input type="email" name="email2" inputmode="email" [(ngModel)]="email2Form" required
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" name="password" [(ngModel)]="user.password" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Latitude</ion-label>
+        <ion-input value="{{lat}}" readonly></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Longitude</ion-label>
+        <ion-input value="{{lng}}" readonly></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="fixed">Avatar image</ion-label>
+        <ion-button (click)="imagePicker()" name="selectImage" required [(ngModel)]="avatarName" #imageModel="ngModel"
+          [ngClass]="validateClasses(imageModel, 'is-valid', 'is-invalid')" ngDefaultControl>Select Image</ion-button>
+      </ion-item>
+
+      <div class="pick-single-image">
+        <ion-img [src]="avatarName" class="is-invalid" required></ion-img>
+      </div>
+
+    </ion-list>
+    <p>
+      <!-- <ion-button ion-button color="light">Light</ion-button> -->
+      <ion-button type="submit" color="primary" expand="block" [disabled]="registerForm.invalid">Create
+        account
+      </ion-button>
+    </p>
+  </form>
+
+
+</ion-content>

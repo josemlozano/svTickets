@@ -1,0 +1,80 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/events"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create event</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Create event</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form #registerForm="ngForm" (ngSubmit)="addEvent()">
+    <ion-list>
+
+      <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input type="text" name="name" [(ngModel)]="newEvent.title" pattern="[A-Za-z ]+" #nameModel="ngModel"
+          required>
+        </ion-input>
+      </ion-item>
+
+      <!-- Datetime in popover with cover element -->
+      <ion-item button="true" id="open-date-input">
+        <ion-label>Date</ion-label>
+        <ion-text required>{{ newEvent.date }}</ion-text>
+        <ion-popover trigger="open-date-input" show-backdrop="false">
+          <ng-template>
+            <ion-datetime #popoverDatetime displayFormat="DD/MM/YYYY" presentation="date"
+              (ionChange)="newEvent.date = formatDate(popoverDatetime.value)" min="{{today | date:'yyyy-MM-dd'}}">
+            </ion-datetime>
+          </ng-template>
+        </ion-popover>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-textarea type="text" name="description" pattern="[A-Za-z ]+\S" [(ngModel)]="newEvent.description" required>
+        </ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Price</ion-label>
+        <ion-input type="number" inputmode="numeric" name="price" [(ngModel)]="newEvent.price" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="fixed">Image</ion-label>
+        <ion-button (click)="imagePicker()" name="selectImage" required [(ngModel)]="newEvent.image"
+          #imageModel="ngModel" [ngClass]="validateClasses(imageModel, 'is-valid', 'is-invalid')" ngDefaultControl>
+          Select Image</ion-button>
+      </ion-item>
+
+      <div class="pick-single-image">
+        <ion-img [src]="newEvent.image" class="is-invalid" *ngIf="showImage" required></ion-img>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Address</ion-label>
+        <ion-input type="text" name="address" [(ngModel)]="newEvent.address" required>
+        </ion-input>
+      </ion-item>
+      <br>
+
+      <div id="mapa-mapbox"></div>
+
+
+    </ion-list>
+    <p>
+      <!-- <ion-button ion-button color="light">Light</ion-button> -->
+      <ion-button type="submit" color="primary" expand="block" [disabled]="registerForm.invalid">Create</ion-button>
+    </p>
+
+  </form>
+
+</ion-content>

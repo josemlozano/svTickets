@@ -1,0 +1,101 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Event List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Event List</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [translucent]="true" href="/events/add">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list>
+    <ion-card *ngFor="let event of events">
+      <a [routerLink]="['/events', event.id]">
+        <ion-img [src]="event.image"></ion-img>
+      </a>
+      <ion-card-header>
+        <!-- <ion-card-subtitle>{{event.description}}</ion-card-subtitle> -->
+        <a [routerLink]="['/events', event.id]">
+          <ion-card-title>{{event.title}}</ion-card-title>
+        </a>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-row>{{event.description}}</ion-row>
+        <ion-row>
+          <ion-button color="danger" (click)="presentAlert(event)" *ngIf="event.mine">Delete</ion-button>
+          <ion-col>
+            <ion-row>
+              <ion-col>
+                <div class="ion-text-end">
+                  <ion-icon name="people"></ion-icon>{{event.numAttend}}
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <div *ngIf="event.attend" class="ion-text-end" (click)="deleteAttend(event)">
+                  <ion-icon name="thumbs-up" color="success"></ion-icon>
+                  <ion-label color="success">I'm going</ion-label>
+                </div>
+                <div *ngIf="!event.attend" class="ion-text-end" (click)="updateAttend(event)">
+                  <ion-icon name="thumbs-down" color="danger"></ion-icon>
+                  <ion-label color="danger">Not going</ion-label>
+                </div>
+              </ion-col>
+            </ion-row>
+
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center card-footer">
+          <!-- <ion-item>
+            <ion-avatar slot="start">
+              <img [src]="event.creator.avatar" />
+              <ion-label>Lorem ipsummmmmmm</ion-label>
+            </ion-avatar>
+            <ion-label>Lorem ipsum</ion-label>
+          </ion-item> -->
+          <ion-col size="auto">
+            <ion-avatar>
+              <img [src]="event.creator.avatar" />
+            </ion-avatar>
+          </ion-col>
+          <ion-col class="name">
+
+            <a [routerLink]="['/profile', event.creator.id]">
+              {{event.creator.name}}
+            </a>
+            <p>{{event.date | date: 'dd/MM/y'}}</p>
+          </ion-col>
+          <ion-col>
+            <div class="ion-text-end">
+              <p>{{event.price | currency: 'EUR':'symbol'}}</p>
+              <p>{{event.distance | number}} km</p>
+            </div>
+          </ion-col>
+        </ion-row>
+
+      </ion-card-content>
+
+
+      <!-- <ion-img [src]="event.image"></ion-img> -->
+    </ion-card>
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">svTickets</string>
+    <string name="title_activity_main">svTickets</string>
+    <string name="package_name">com.josemu.svTickets</string>
+    <string name="custom_url_scheme">com.josemu.svTickets</string>
+</resources>
