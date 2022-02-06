@@ -42,8 +42,16 @@ export class AuthServicesService {
   isLogged(): Observable<boolean> {
     const token = localStorage.getItem('token');
 
-    if (this.logged) {
+    if (this.logged && token !== null && token !== '') {
       of(true);
+    } else if (!this.logged && token !== null && token !== '') {
+      this.getValidate().subscribe({
+        next: (ok) => {
+          this.logged = true;
+          this.loginChange$.next(true);
+        },
+        error: () => localStorage.removeItem('token'),
+      });
     }
     return of(false);
   }
