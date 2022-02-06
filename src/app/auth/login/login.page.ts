@@ -68,7 +68,7 @@ export class LoginPage implements OnInit {
         });
 
         if (isLoged) {
-          this.router.navigate(['/events']);
+          this.router.navigate(['/events/list']);
         }
       },
       error: (error) => console.log('error: ' + error),

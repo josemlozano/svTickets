@@ -145,7 +145,7 @@ export class EventFormPage implements OnInit {
     this.eventsService.addEvent(this.newEvent).subscribe({
       next: (ev) => {
         this.leavePage = true;
-        this.router.navigate(['/events']);
+        this.router.navigate(['/events/list']);
       },
       error: (error) => console.log(error),
     });

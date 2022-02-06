@@ -21,8 +21,9 @@ export class EditPassComponent {
   changePass() {
     if (this.password !== this.password2) {
       this.showToast(3000, 'Passwords do not match!');
+      return;
     }
-    return;
+
     this.userServ.changePassword(this.password).subscribe(
       (ok) => this.modalCtrl.dismiss({ changed: true }),
       (error) => this.showToast(3000, error)

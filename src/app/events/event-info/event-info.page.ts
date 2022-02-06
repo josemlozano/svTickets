@@ -47,7 +47,7 @@ export class EventInfoPage implements OnInit {
 
   delete(event: SVEvent) {
     this.eventsService.deleteEvent(event.id).subscribe({
-      next: () => this.router.navigate(['/events']),
+      next: () => this.router.navigate(['/events/list']),
       error: (error) => console.error(error),
     });
   }

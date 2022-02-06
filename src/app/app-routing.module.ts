@@ -21,6 +21,15 @@ const routes: Routes = [
   },
   {
     path: 'events',
+    redirectTo: 'events/list',
+    pathMatch: 'full',
+    // loadChildren: () =>
+    //   import('./events/event-list/event-list.module').then(
+    //     (m) => m.EventListPageModule
+    //   ),
+  },
+  {
+    path: 'events/list',
     loadChildren: () =>
       import('./events/event-list/event-list.module').then(
         (m) => m.EventListPageModule

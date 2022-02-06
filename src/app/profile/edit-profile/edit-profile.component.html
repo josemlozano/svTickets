@@ -1,3 +1,29 @@
-<p>
-  edit-profile works!
-</p>
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Modal Content</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <form #nameEmailForm="ngForm" (ngSubmit)="changeNameEmail()">
+    <ion-list>
+
+      <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input type="text" name="name" [(ngModel)]="nameUser" pattern="[A-Za-z ]+" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" name="email" inputmode="email" [(ngModel)]="emailUser" required
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button type="submit" color="primary" expand="block" [disabled]="nameEmailForm.invalid">Create
+      account
+    </ion-button>
+  </form>
+
+</ion-content>
