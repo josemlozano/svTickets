@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Camera, CameraResultType } from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ModalController, ToastController } from '@ionic/angular';
 import { User } from 'src/app/interfaces/svuser';
 import { EditPassComponent } from '../edit-pass/edit-pass.component';
@@ -56,9 +56,11 @@ export class ProfilePage implements OnInit {
   changeImage() {
     this.usersService.putUserAvatar(this.avatarName).subscribe({
       next: (avatar) => {
-        this.user.avatar = avatar.avatar;
+        this.user.avatar = avatar;
         this.showImage = false;
         this.avatarName = null;
+        console.log(avatar);
+        console.log(this.user.avatar);
       },
       error: (er) => console.log(er),
     });
@@ -103,6 +105,7 @@ export class ProfilePage implements OnInit {
 
   async imagePicker() {
     const takePicture = await Camera.getPhoto({
+      source: CameraSource.Prompt,
       saveToGallery: true,
       resultType: CameraResultType.DataUrl,
       // resultType: CameraResultType.Base64,

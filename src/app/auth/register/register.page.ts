@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Camera, CameraResultType } from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { AlertController } from '@ionic/angular';
 import { User } from 'src/app/interfaces/svuser';
 import { MyGeolocation } from 'src/app/mygeolocation/my-geolocation.service';
@@ -95,6 +95,7 @@ export class RegisterPage implements OnInit {
 
   async imagePicker() {
     const takePicture = await Camera.getPhoto({
+      source: CameraSource.Prompt,
       saveToGallery: true,
       resultType: CameraResultType.DataUrl,
       // resultType: CameraResultType.Base64,

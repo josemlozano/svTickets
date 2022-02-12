@@ -7,9 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { EventListPageRoutingModule } from './event-list-routing.module';
 
 import { EventListPage } from './event-list.page';
+import { EventsFilterPipe } from 'src/app/pipes/events-filter.pipe';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, EventListPageRoutingModule],
-  declarations: [EventListPage],
+  declarations: [EventListPage, EventsFilterPipe],
 })
 export class EventListPageModule {}

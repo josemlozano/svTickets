@@ -42,9 +42,9 @@ export class UsersService {
     });
   }
 
-  putUserAvatar(image: string): Observable<Avatar> {
+  putUserAvatar(image: string): Observable<string> {
     return this.http
-      .put<AvatarResponse>(this.userURL + '/me/photo', {
+      .put<Avatar>(this.userURL + '/me/photo', {
         avatar: image,
       })
       .pipe(map((response) => response.avatar));

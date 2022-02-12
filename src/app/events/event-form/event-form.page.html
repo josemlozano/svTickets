@@ -28,7 +28,7 @@
       <ion-item button="true" id="open-date-input">
         <ion-label>Date</ion-label>
         <ion-text required>{{ newEvent.date }}</ion-text>
-        <ion-popover trigger="open-date-input" show-backdrop="false">
+        <ion-popover trigger="open-date-input" show-backdrop="false" class="popperDate">
           <ng-template>
             <ion-datetime #popoverDatetime displayFormat="DD/MM/YYYY" presentation="date"
               (ionChange)="newEvent.date = formatDate(popoverDatetime.value)" min="{{today | date:'yyyy-MM-dd'}}">

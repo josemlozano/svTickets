@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Camera, CameraResultType } from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl';
@@ -40,53 +40,6 @@ export class EventFormPage implements OnInit {
 
   ionViewDidEnter() {
     this.buildMap();
-  }
-
-  async buildMap() {
-    const pos = await MyGeolocation.getLocation();
-    this.longitude = pos.longitude;
-    this.latitude = pos.latitude;
-    console.log(pos);
-
-    (Mapboxgl.accessToken as string) = environment.mapkey;
-    this.mapa = new Mapboxgl.Map({
-      container: 'mapa-mapbox', // container id
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [this.longitude, this.latitude], // starting position
-      zoom: 14, // starting zoom
-    });
-
-    // this.mapa.addControl(new mapboxgl.NavigationControl());
-    this.createMarker(
-      'red',
-      new Mapboxgl.LngLat(this.longitude, this.latitude)
-    );
-
-    const geocoder = new MapboxGeocoder({
-      accessToken: Mapboxgl.accessToken,
-      mapboxgl,
-    });
-    this.mapa.addControl(geocoder);
-
-    geocoder.on('result', (e: any) => {
-      new Mapboxgl.Popup().setLngLat(e.result.center).addTo(this.mapa);
-      console.log(e);
-
-      this.latitude = e.result.center[1];
-      this.longitude = e.result.center[0];
-      this.newEvent.address = e.result.place_name;
-    });
-
-    this.mapa.on('click', (e) => {
-      this.mapa.panTo(e.lngLat);
-      new Mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(`Latitude: ${e.lngLat.lat}<br>Longitude: ${e.lngLat.lng}`)
-        .addTo(this.mapa);
-      this.createMarkerPosition('green', e.lngLat);
-      this.latitude = e.result.center[1];
-      this.longitude = e.result.center[0];
-    });
   }
 
   createMarker(color: string, lngLat: mapboxgl.LngLatLike): void {
@@ -144,6 +97,7 @@ export class EventFormPage implements OnInit {
 
     this.eventsService.addEvent(this.newEvent).subscribe({
       next: (ev) => {
+        console.log(ev);
         this.leavePage = true;
         this.router.navigate(['/events/list']);
       },
@@ -162,11 +116,14 @@ export class EventFormPage implements OnInit {
   }
 
   formatDate(value: string) {
-    return format(parseISO(value), 'dd/MM/yyyy');
+    console.log(value);
+    console.log(format(parseISO(value), 'yyyy-MM-dd'));
+    return format(parseISO(value), 'yyyy-MM-dd');
   }
 
   async imagePicker() {
     const takePicture = await Camera.getPhoto({
+      source: CameraSource.Prompt,
       saveToGallery: true,
       resultType: CameraResultType.DataUrl,
       // resultType: CameraResultType.Base64,
@@ -179,5 +136,52 @@ export class EventFormPage implements OnInit {
     this.showImage = true;
 
     const imgRes = [];
+  }
+
+  async buildMap() {
+    const pos = await MyGeolocation.getLocation();
+    this.longitude = pos.longitude;
+    this.latitude = pos.latitude;
+    console.log(pos);
+
+    (Mapboxgl.accessToken as string) = environment.mapkey;
+    this.mapa = new Mapboxgl.Map({
+      container: 'mapa-mapbox', // container id
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [this.longitude, this.latitude], // starting position
+      zoom: 14, // starting zoom
+    });
+
+    // this.mapa.addControl(new mapboxgl.NavigationControl());
+    this.createMarker(
+      'red',
+      new Mapboxgl.LngLat(this.longitude, this.latitude)
+    );
+
+    const geocoder = new MapboxGeocoder({
+      accessToken: Mapboxgl.accessToken,
+      mapboxgl,
+    });
+    this.mapa.addControl(geocoder);
+
+    geocoder.on('result', (e: any) => {
+      new Mapboxgl.Popup().setLngLat(e.result.center).addTo(this.mapa);
+      console.log(e);
+
+      this.latitude = e.result.center[1];
+      this.longitude = e.result.center[0];
+      this.newEvent.address = e.result.place_name;
+    });
+
+    this.mapa.on('click', (e) => {
+      this.mapa.panTo(e.lngLat);
+      new Mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(`Latitude: ${e.lngLat.lat}<br>Longitude: ${e.lngLat.lng}`)
+        .addTo(this.mapa);
+      this.createMarkerPosition('green', e.lngLat);
+      this.latitude = e.lngLat.lat;
+      this.longitude = e.lngLat.lng;
+    });
   }
 }
