@@ -95,7 +95,7 @@
             <a [routerLink]="['/profile', event.creator.id]">
               {{event.creator.name}}
             </a>
-            <p>{{event.date | date: 'dd/MM/y'}}</p>
+            <p>{{formatDate(event.date)}}</p>
           </ion-col>
           <ion-col>
             <div class="ion-text-end">

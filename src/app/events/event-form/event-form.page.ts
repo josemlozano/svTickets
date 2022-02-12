@@ -116,9 +116,13 @@ export class EventFormPage implements OnInit {
   }
 
   formatDate(value: string) {
-    console.log(value);
-    console.log(format(parseISO(value), 'yyyy-MM-dd'));
-    return format(parseISO(value), 'yyyy-MM-dd');
+    let dateFormated = '';
+
+    try {
+      dateFormated = format(parseISO(value), 'dd/MM/yyyy');
+    } catch (err) {}
+
+    return dateFormated;
   }
 
   async imagePicker() {

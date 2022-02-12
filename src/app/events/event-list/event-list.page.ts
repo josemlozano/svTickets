@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { SVEvent } from 'src/app/interfaces/svevent';
 import { EventsServicesService } from '../services/events-services.service';
+import { format, parseISO } from 'date-fns';
 
 @Component({
   selector: 'app-event-list',
@@ -17,12 +18,10 @@ export class EventListPage implements OnInit {
   constructor(
     private eventsService: EventsServicesService,
     private router: Router,
-    private alertController: AlertController,
-    public loadingController: LoadingController
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
-    this.showLoading();
     console.log(localStorage.getItem('token'));
     if (localStorage.getItem('token') == null) {
       this.router.navigate(['/']);
@@ -81,12 +80,14 @@ export class EventListPage implements OnInit {
     });
   }
 
-  async showLoading() {
-    const loading = await this.loadingController.create({
-      message: 'Please wait...',
-      duration: 2000,
-    });
-    await loading.present();
+  formatDate(value: string) {
+    let dateFormated = '';
+
+    try {
+      dateFormated = format(parseISO(value), 'dd/MM/yyyy');
+    } catch (err) {}
+
+    return dateFormated;
   }
 
   async presentAlert(event: SVEvent) {

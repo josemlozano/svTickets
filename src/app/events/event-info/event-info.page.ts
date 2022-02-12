@@ -5,6 +5,7 @@ import { EventDetailsPage } from '../event-details/event-details.page';
 import { EventsServicesService } from '../services/events-services.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/interfaces/svuser';
+import { format, parseISO } from 'date-fns';
 
 @Component({
   selector: 'app-event-info',
@@ -66,6 +67,16 @@ export class EventInfoPage implements OnInit {
         this.ngOnInit();
       },
     });
+  }
+
+  formatDate(value: string) {
+    let dateFormated = '';
+
+    try {
+      dateFormated = format(parseISO(value), 'dd/MM/yyyy');
+    } catch (err) {}
+
+    return dateFormated;
   }
 
   async presentAlert(event: SVEvent) {
