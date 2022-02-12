@@ -1,7 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, ReplaySubject } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Storage } from '@capacitor/storage';
+import { from, Observable, of, ReplaySubject } from 'rxjs';
+import { map, catchError, switchMap } from 'rxjs/operators';
 import { RegisterResponse, TokenResponse } from 'src/app/interfaces/svauth';
 import { User, UserLogin } from 'src/app/interfaces/svuser';
 
@@ -18,42 +19,41 @@ export class AuthServicesService {
   login(user: UserLogin): Observable<void> {
     // return ;
     return this.http.post<TokenResponse>(this.authURL + '/login', user).pipe(
-      map((response) => {
-        localStorage.setItem('token', response.accessToken);
-        this.logged = true;
-        this.loginChange$.next(true);
-      }),
-      catchError(async () => {
-        this.logged = false;
-
-        this.loginChange$.next(false);
+      switchMap(async (response) => {
+        try {
+          await Storage.set({ key: 'fs-token', value: response.accessToken });
+          this.setLogged(true);
+        } catch (e) {
+          throw new Error('Can not save authentication token in storage!');
+        }
       })
     );
   }
 
-  logout(): void {
-    console.log(localStorage.getItem('token'));
-    localStorage.removeItem('token');
-    console.log(localStorage.getItem('token'));
-    this.logged = false;
-    return this.loginChange$.next(false);
+  async logout(): Promise<void> {
+    await Storage.remove({ key: 'fs-token' });
+    this.setLogged(false);
   }
 
   isLogged(): Observable<boolean> {
-    const token = localStorage.getItem('token');
-
-    if (this.logged && token !== null && token !== '') {
-      of(true);
-    } else if (!this.logged && token !== null && token !== '') {
-      this.getValidate().subscribe({
-        next: (ok) => {
-          this.logged = true;
-          this.loginChange$.next(true);
-        },
-        error: () => localStorage.removeItem('token'),
-      });
-    }
-    return of(false);
+    return from(Storage.get({ key: 'fs-token' })).pipe(
+      switchMap((token) => {
+        if (this.logged && token !== null && token.value !== '') {
+          return of(true);
+        }
+        if (!this.logged && !token.value) {
+          throw new Error();
+        }
+        return this.http.get('auth/validate').pipe(
+          map(() => {
+            this.setLogged(true);
+            return true;
+          }),
+          catchError((error) => of(false))
+        );
+      }),
+      catchError((e) => of(false))
+    );
   }
 
   postRegister(user: User): Observable<User> {
@@ -62,7 +62,14 @@ export class AuthServicesService {
       .pipe(map((response) => response.user));
   }
 
-  getValidate(): Observable<void> {
-    return this.http.get<void>(this.authURL + '/validate');
+  getValidate(): Observable<string> {
+    return this.http
+      .get<string>(this.authURL + '/validate')
+      .pipe(map((res) => res));
+  }
+
+  private setLogged(logged: boolean) {
+    this.logged = logged;
+    this.loginChange$.next(logged);
   }
 }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthServicesService } from './auth/services/auth-services.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -14,5 +16,13 @@ export class AppComponent {
     // { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
     // { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
   ];
-  constructor() {}
+  constructor(
+    private authService: AuthServicesService,
+    private router: Router
+  ) {}
+
+  async logoutUser() {
+    await this.authService.logout();
+    this.router.navigate(['/']);
+  }
 }

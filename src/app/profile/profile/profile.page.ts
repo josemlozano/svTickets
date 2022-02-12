@@ -83,6 +83,7 @@ export class ProfilePage implements OnInit {
       component: EditProfileComponent,
       componentProps: { nameUser: this.user.name, emailUser: this.user.email },
       swipeToClose: true,
+      cssClass: 'modalCard',
     });
     await modal.present();
     const result = await modal.onDidDismiss();

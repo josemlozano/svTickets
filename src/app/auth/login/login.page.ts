@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { UserLogin } from 'src/app/interfaces/svuser';
 import { MyGeolocation } from 'src/app/mygeolocation/my-geolocation.service';
 import { AuthServicesService } from '../services/auth-services.service';
@@ -18,7 +19,8 @@ export class LoginPage implements OnInit {
 
   constructor(
     private authService: AuthServicesService,
-    private router: Router
+    private router: Router,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -26,34 +28,7 @@ export class LoginPage implements OnInit {
       email: '',
       password: '',
     };
-    this.logoutUser();
     this.locateUser();
-    // this.load();
-  }
-
-  // load() {
-  //   this.mapComp.load.subscribe(() => {
-  //     this.mapComp.mapInstance.resize(); // Necessary for full height
-  //   });
-  // }
-
-  // isLogged() {
-  //   this.authService.isLogged().subscribe({
-  //     next: (log) => {
-  //       console.log(log.valueOf());
-  //       this.logged = !log.valueOf();
-  //     },
-  //   });
-  // }
-
-  async locateUser() {
-    const pos = await MyGeolocation.getLocation();
-    this.lng = pos.longitude;
-    this.lat = pos.latitude;
-  }
-
-  logoutUser() {
-    this.authService.logout();
   }
 
   loginUser() {
@@ -71,7 +46,10 @@ export class LoginPage implements OnInit {
           this.router.navigate(['/events/list']);
         }
       },
-      error: (error) => console.log('error: ' + error),
+      error: (error) => {
+        const text = error.error.error;
+        this.presentAlert(text);
+      },
     });
   }
 
@@ -80,5 +58,22 @@ export class LoginPage implements OnInit {
       [validClass]: ngModel.touched && ngModel.valid,
       [errorClass]: ngModel.touched && ngModel.invalid,
     };
+  }
+
+  async locateUser() {
+    const pos = await MyGeolocation.getLocation();
+    this.lng = pos.longitude;
+    this.lat = pos.latitude;
+  }
+
+  async presentAlert(text: string) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Error',
+      message: text,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
   }
 }

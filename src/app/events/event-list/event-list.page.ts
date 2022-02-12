@@ -22,10 +22,6 @@ export class EventListPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(localStorage.getItem('token'));
-    if (localStorage.getItem('token') == null) {
-      this.router.navigate(['/']);
-    }
     this.getEvents();
   }
 
