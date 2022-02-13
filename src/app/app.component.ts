@@ -13,10 +13,6 @@ export class AppComponent {
     { title: 'Event list', url: '/events/list', icon: 'albums' },
     { title: 'New Event', url: '/events/add', icon: 'add-circle' },
     { title: 'Profile', url: '/profile/me', icon: 'person-circle' },
-    // { title: 'Logout', url: '/folder/Favorites', icon: 'heart' },
-    // { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
-    // { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
-    // { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
   ];
   constructor(
     private authService: AuthServicesService,
@@ -27,8 +23,6 @@ export class AppComponent {
   }
 
   initializeApp() {
-    console.log(this.platform);
-
     if (this.platform.is('capacitor')) {
       this.platform.ready().then(() => {
         GoogleAuth.init();

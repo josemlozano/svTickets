@@ -36,7 +36,6 @@
       </ion-row>
     </ion-grid>
     <ion-item>
-      <!-- <ion-label position="floating">Search</ion-label> -->
       <ion-input type="text" name="name" [(ngModel)]="search" #nameModel="ngModel" placeholder="Search"
         clearInput="true"></ion-input>
     </ion-item>
@@ -45,7 +44,6 @@
         <ion-img [src]="event.image"></ion-img>
       </a>
       <ion-card-header>
-        <!-- <ion-card-subtitle>{{event.description}}</ion-card-subtitle> -->
         <a [routerLink]="['/events', event.id]">
           <ion-card-title>{{event.title}}</ion-card-title>
         </a>
@@ -79,13 +77,6 @@
           </ion-col>
         </ion-row>
         <ion-row class="ion-align-items-center card-footer">
-          <!-- <ion-item>
-            <ion-avatar slot="start">
-              <img [src]="event.creator.avatar" />
-              <ion-label>Lorem ipsummmmmmm</ion-label>
-            </ion-avatar>
-            <ion-label>Lorem ipsum</ion-label>
-          </ion-item> -->
           <ion-col size="auto">
             <ion-avatar>
               <img [src]="event.creator.avatar" />
@@ -107,9 +98,6 @@
         </ion-row>
 
       </ion-card-content>
-
-
-      <!-- <ion-img [src]="event.image"></ion-img> -->
     </ion-card>
   </ion-list>
 

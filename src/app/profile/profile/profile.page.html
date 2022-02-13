@@ -24,9 +24,6 @@
     <ion-label>Email</ion-label>
     <ion-label>{{user.email}}</ion-label>
   </ion-item>
-
-
-
   <ion-row>
     <ion-col size="auto">
       <ion-img [src]="user.avatar" class="imageProfile"></ion-img>
@@ -40,11 +37,6 @@
     <ion-button (click)="imagePicker()" name="selectImage" [(ngModel)]="avatarName" #imageModel="ngModel"
       ngDefaultControl>Select Image</ion-button>
   </ion-item>
-
-
-  <!-- <ion-img [src]="user.avatar"></ion-img> -->
-
-
   <ion-button *ngIf="user.me" expand="block" color="primary" (click)="openChangePass()">Change password</ion-button>
   <ion-button *ngIf="user.me" expand="block" color="primary" (click)="openCardModal()">Change name or email</ion-button>
   <ion-button *ngIf="user.me" expand="block" color="primary" (click)="changeImage()" [disabled]="!showImage">Change

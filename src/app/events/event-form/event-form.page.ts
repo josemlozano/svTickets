@@ -43,10 +43,8 @@ export class EventFormPage implements OnInit {
   }
 
   createMarker(color: string, lngLat: mapboxgl.LngLatLike): void {
-    console.log(this.mapa);
     const mp = new Mapboxgl.Marker({ color }).setLngLat(lngLat);
     mp.addTo(this.mapa);
-    console.log(new Mapboxgl.Marker({ color }).setLngLat(lngLat));
   }
 
   createMarkerPosition(color: string, lngLat: mapboxgl.LngLatLike): void {
@@ -56,9 +54,6 @@ export class EventFormPage implements OnInit {
     this.mapMarker = new Mapboxgl.Marker({ color })
       .setLngLat(lngLat)
       .addTo(this.mapa);
-    console.log(this.mapMarker.getLngLat());
-    // latitude = mapMarker.getLngLat().lat;
-    // longitude = mapMarker.getLngLat().lng;
   }
 
   changeImage(fileInput: HTMLInputElement) {
@@ -93,11 +88,9 @@ export class EventFormPage implements OnInit {
   addEvent() {
     this.newEvent.lng = this.longitude;
     this.newEvent.lat = this.latitude;
-    console.log(this.newEvent);
 
     this.eventsService.addEvent(this.newEvent).subscribe({
       next: (ev) => {
-        console.log(ev);
         this.leavePage = true;
         this.router.navigate(['/events/list']);
       },
@@ -130,11 +123,7 @@ export class EventFormPage implements OnInit {
       source: CameraSource.Prompt,
       saveToGallery: true,
       resultType: CameraResultType.DataUrl,
-      // resultType: CameraResultType.Base64,
     });
-    console.log(takePicture);
-    console.log(takePicture.webPath);
-    console.log(takePicture.dataUrl);
 
     this.newEvent.image = takePicture.dataUrl;
     this.showImage = true;
@@ -146,7 +135,6 @@ export class EventFormPage implements OnInit {
     const pos = await MyGeolocation.getLocation();
     this.longitude = pos.longitude;
     this.latitude = pos.latitude;
-    console.log(pos);
 
     (Mapboxgl.accessToken as string) = environment.mapkey;
     this.mapa = new Mapboxgl.Map({
@@ -156,7 +144,6 @@ export class EventFormPage implements OnInit {
       zoom: 14, // starting zoom
     });
 
-    // this.mapa.addControl(new mapboxgl.NavigationControl());
     this.createMarker(
       'red',
       new Mapboxgl.LngLat(this.longitude, this.latitude)
@@ -170,7 +157,6 @@ export class EventFormPage implements OnInit {
 
     geocoder.on('result', (e: any) => {
       new Mapboxgl.Popup().setLngLat(e.result.center).addTo(this.mapa);
-      console.log(e);
 
       this.latitude = e.result.center[1];
       this.longitude = e.result.center[0];

@@ -26,11 +26,8 @@ export class EventListPage implements OnInit {
   }
 
   doRefresh(event) {
-    console.log('Begin async operation');
-
     setTimeout(() => {
       this.getEvents();
-      console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
   }
@@ -97,9 +94,7 @@ export class EventListPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           id: 'cancel-button',
-          handler: (blah) => {
-            console.log('');
-          },
+          handler: () => {},
         },
         {
           text: 'Okay',

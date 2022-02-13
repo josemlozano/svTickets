@@ -11,6 +11,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { BaseUrlInterceptorInterceptor } from './interceptors/base-url-interceptor.interceptor';
 import { environment } from 'src/environments/environment';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { GoogleLoginModule } from './google-login/google-login.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,9 @@ import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
     NgxMapboxGLModule.withConfig({
       accessToken: environment.mapkey,
     }),
+    GoogleLoginModule.forRoot(
+      '224210719062-5ormf9hs04dql4g5er7gavoj3dusp25s.apps.googleusercontent.com'
+    ),
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

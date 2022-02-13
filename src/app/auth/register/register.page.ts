@@ -52,7 +52,6 @@ export class RegisterPage implements OnInit {
         error: (error) => {
           const text = error.error.message;
           this.presentAlert(text);
-          console.log(error);
         },
       });
     } else {
@@ -90,7 +89,6 @@ export class RegisterPage implements OnInit {
     await alert.present();
 
     const { role } = await alert.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
   }
 
   async imagePicker() {
@@ -98,11 +96,7 @@ export class RegisterPage implements OnInit {
       source: CameraSource.Prompt,
       saveToGallery: true,
       resultType: CameraResultType.DataUrl,
-      // resultType: CameraResultType.Base64,
     });
-    console.log(takePicture);
-    console.log(takePicture.webPath);
-    console.log(takePicture.dataUrl);
 
     this.avatarName = takePicture.dataUrl;
     this.showImage = true;

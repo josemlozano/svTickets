@@ -59,8 +59,6 @@ export class ProfilePage implements OnInit {
         this.user.avatar = avatar;
         this.showImage = false;
         this.avatarName = null;
-        console.log(avatar);
-        console.log(this.user.avatar);
       },
       error: (er) => console.log(er),
     });
@@ -109,11 +107,7 @@ export class ProfilePage implements OnInit {
       source: CameraSource.Prompt,
       saveToGallery: true,
       resultType: CameraResultType.DataUrl,
-      // resultType: CameraResultType.Base64,
     });
-    console.log(takePicture);
-    console.log(takePicture.webPath);
-    console.log(takePicture.dataUrl);
 
     this.avatarName = takePicture.dataUrl;
     this.showImage = true;

@@ -90,9 +90,7 @@ export class EventInfoPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           id: 'cancel-button',
-          handler: () => {
-            console.log('');
-          },
+          handler: () => {},
         },
         {
           text: 'Okay',

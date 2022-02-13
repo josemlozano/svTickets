@@ -28,22 +28,27 @@
       </ion-item>
     </ion-list>
     <p>
-      <!-- <ion-button ion-button color="light">Light</ion-button> -->
       <ion-button type="submit" color="primary" expand="block" [disabled]="loginForm.invalid">Login</ion-button>
     </p>
   </form>
 
   <ion-button expand="block" fill="outline" routerLink="/register">Create account</ion-button>
 
-  <ion-button appGoogleLogin type="button" class="btn btn-danger" (click)="login()">
-    <ion-icon name="logo-google"></ion-icon>
-    Login Google
-  </ion-button>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button appGoogleLogin expand="block" (click)="login()">
+          <ion-icon name="logo-google"></ion-icon>
+          Login Google
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button appFbLogin expand="block" (click)="loginFB()">
+          <ion-icon name="logo-facebook"></ion-icon>
+          Login facebook
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-  <!-- <mgl-map [style]="'mapbox://styles/mapbox/streets-v11'" [zoom]="[14]" [center]="[lng, lat]">
-    <mgl-marker #marker [lngLat]="[lng, lat]"></mgl-marker>
-    <mgl-popup [marker]="marker">
-      You are here
-    </mgl-popup>
-  </mgl-map> -->
 </ion-content>

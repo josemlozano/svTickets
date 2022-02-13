@@ -4,7 +4,7 @@ import { Storage } from '@capacitor/storage';
 import { from, Observable, of, ReplaySubject } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { RegisterResponse, TokenResponse } from 'src/app/interfaces/svauth';
-import { User, UserLogin } from 'src/app/interfaces/svuser';
+import { User, UserLogin, UserLoginGoogle } from 'src/app/interfaces/svuser';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,6 @@ export class AuthServicesService {
   constructor(private readonly http: HttpClient) {}
 
   login(user: UserLogin): Observable<void> {
-    // return ;
     return this.http.post<TokenResponse>(this.authURL + '/login', user).pipe(
       switchMap(async (response) => {
         try {
@@ -30,11 +29,9 @@ export class AuthServicesService {
     );
   }
 
-  loginGoogle(tokenGoogle: string): Observable<void> {
-    // return ;
-
+  loginGoogle(tokenGoogle: UserLoginGoogle): Observable<void> {
     return this.http
-      .post<TokenResponse>(this.authURL + '/google', { token: tokenGoogle })
+      .post<TokenResponse>(this.authURL + '/google', tokenGoogle)
       .pipe(
         switchMap(async (response) => {
           try {

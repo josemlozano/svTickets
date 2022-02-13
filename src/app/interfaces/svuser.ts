@@ -27,3 +27,9 @@ export interface Avatar {
 export interface AvatarResponse {
   avatar: Avatar;
 }
+
+export interface UserLoginGoogle {
+  token: string;
+  lat?: number;
+  lng?: number;
+}

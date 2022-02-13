@@ -35,7 +35,6 @@ export class EventLocationPage implements OnInit {
       date: '',
     };
     this.parentComponent.event$.subscribe((event) => (this.event = event));
-    // this.filteredItems = this.items;
   }
 
   ionViewDidEnter() {
@@ -51,7 +50,6 @@ export class EventLocationPage implements OnInit {
       zoom: 14, // starting zoom
     });
 
-    // this.mapa.addControl(new mapboxgl.NavigationControl());
     this.createMarker(
       'red',
       new Mapboxgl.LngLat(this.event.lng, this.event.lat)
@@ -59,10 +57,8 @@ export class EventLocationPage implements OnInit {
   }
 
   createMarker(color: string, lngLat: mapboxgl.LngLatLike): void {
-    console.log(this.mapa);
     const mp = new Mapboxgl.Marker({ color }).setLngLat(lngLat);
     mp.addTo(this.mapa);
-    console.log(new Mapboxgl.Marker({ color }).setLngLat(lngLat));
   }
 
   createMarkerPosition(color: string, lngLat: mapboxgl.LngLatLike): void {
@@ -72,20 +68,5 @@ export class EventLocationPage implements OnInit {
     this.mapMarker = new Mapboxgl.Marker({ color })
       .setLngLat(lngLat)
       .addTo(this.mapa);
-    console.log(this.mapMarker.getLngLat());
-    // latitude = mapMarker.getLngLat().lat;
-    // longitude = mapMarker.getLngLat().lng;
   }
-
-  // filterItems(event) {
-  //   let search: string = event.target.value;
-  //   if (search && search.trim() !== '') {
-  //     search = search.trim().toLowerCase();
-  //     this.filteredItems = this.items.filter((i) =>
-  //       i.toLowerCase().includes(search)
-  //     );
-  //   } else {
-  //     this.filteredItems = this.items;
-  //   }
-  // }
 }
