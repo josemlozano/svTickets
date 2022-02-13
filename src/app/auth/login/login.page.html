@@ -35,6 +35,11 @@
 
   <ion-button expand="block" fill="outline" routerLink="/register">Create account</ion-button>
 
+  <ion-button appGoogleLogin type="button" class="btn btn-danger" (click)="login()">
+    <ion-icon name="logo-google"></ion-icon>
+    Login Google
+  </ion-button>
+
   <!-- <mgl-map [style]="'mapbox://styles/mapbox/streets-v11'" [zoom]="[14]" [center]="[lng, lat]">
     <mgl-marker #marker [lngLat]="[lng, lat]"></mgl-marker>
     <mgl-popup [marker]="marker">

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>224210719062-afs2o76bs0u8p17l4ts0ib2b9tvddrm7.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.224210719062-afs2o76bs0u8p17l4ts0ib2b9tvddrm7</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>224210719062-313s8aokbojoi6ifrlm1ijhuukdiqtr9.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCwOHFXLahyfbTvRlRtjQfTSXL3UMyrOoA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>224210719062</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.josemu.svTickets</string>
+	<key>PROJECT_ID</key>
+	<string>svtickets-341210</string>
+	<key>STORAGE_BUCKET</key>
+	<string>svtickets-341210.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:224210719062:ios:3199805b0a11dac0dc46f7</string>
+</dict>
+</plist>

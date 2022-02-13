@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { Platform } from '@ionic/angular';
 import { AuthServicesService } from './auth/services/auth-services.service';
 @Component({
   selector: 'app-root',
@@ -18,8 +20,21 @@ export class AppComponent {
   ];
   constructor(
     private authService: AuthServicesService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private platform: Platform
+  ) {
+    this.initializeApp();
+  }
+
+  initializeApp() {
+    console.log(this.platform);
+
+    if (this.platform.is('capacitor')) {
+      this.platform.ready().then(() => {
+        GoogleAuth.init();
+      });
+    }
+  }
 
   async logoutUser() {
     await this.authService.logout();

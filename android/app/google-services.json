@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "224210719062",
+    "project_id": "svtickets-341210",
+    "storage_bucket": "svtickets-341210.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:224210719062:android:b245f5475ad2bc32dc46f7",
+        "android_client_info": {
+          "package_name": "com.josemu.svTickets"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "224210719062-5ormf9hs04dql4g5er7gavoj3dusp25s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3oYoQpGtc-XviEoNfO1mei7wPFEFpvmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "224210719062-5ormf9hs04dql4g5er7gavoj3dusp25s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "224210719062-afs2o76bs0u8p17l4ts0ib2b9tvddrm7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.josemu.svTickets"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

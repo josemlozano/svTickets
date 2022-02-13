@@ -1,0 +1,13 @@
+{
+  "appId": "com.josemu.svTickets",
+  "appName": "svTickets",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "GoogleAuth": {
+      "scopes": ["profile", "email"],
+      "serverClientId": "744254868856-6j8dflcgq0tiqt0b506b61etukcq3rdm.apps.googleusercontent.com",
+      "forceCodeForRefreshToken": true
+    }
+  }
+}

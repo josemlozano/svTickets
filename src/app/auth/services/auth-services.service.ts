@@ -30,6 +30,23 @@ export class AuthServicesService {
     );
   }
 
+  loginGoogle(tokenGoogle: string): Observable<void> {
+    // return ;
+
+    return this.http
+      .post<TokenResponse>(this.authURL + '/google', { token: tokenGoogle })
+      .pipe(
+        switchMap(async (response) => {
+          try {
+            await Storage.set({ key: 'fs-token', value: response.accessToken });
+            this.setLogged(true);
+          } catch (e) {
+            throw new Error('Can not save authentication token in storage!');
+          }
+        })
+      );
+  }
+
   async logout(): Promise<void> {
     await Storage.remove({ key: 'fs-token' });
     this.setLogged(false);

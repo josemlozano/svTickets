@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { AlertController } from '@ionic/angular';
 import { UserLogin } from 'src/app/interfaces/svuser';
 import { MyGeolocation } from 'src/app/mygeolocation/my-geolocation.service';
@@ -16,6 +17,7 @@ export class LoginPage implements OnInit {
   lng = 0;
   user!: UserLogin;
   logged = false;
+  userG = null;
 
   constructor(
     private authService: AuthServicesService,
@@ -75,5 +77,32 @@ export class LoginPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async login() {
+    try {
+      this.userG = await GoogleAuth.signIn();
+      console.log(this.userG.authentication.idToken);
+      this.authService
+        .loginGoogle(this.userG.authentication.idToken)
+        .subscribe({
+          next: (us) => {
+            let isLoged = false;
+            this.authService.loginChange$.forEach((e) => {
+              isLoged = e;
+            });
+
+            if (isLoged) {
+              this.router.navigate(['/events/list']);
+            }
+          },
+          error: (error) => {
+            const text = error.error.error;
+            this.presentAlert(text);
+          },
+        });
+    } catch (err) {
+      console.error(err);
+    }
   }
 }

@@ -5,6 +5,19 @@ const config: CapacitorConfig = {
   appName: 'svTickets',
   webDir: 'www',
   bundledWebRuntime: false,
+  plugins: {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    GoogleAuth: {
+      scopes: ['profile', 'email'],
+      androidClientId:
+        '224210719062-313s8aokbojoi6ifrlm1ijhuukdiqtr9.apps.googleusercontent.com',
+      iosClientId:
+        '224210719062-afs2o76bs0u8p17l4ts0ib2b9tvddrm7.apps.googleusercontent.com',
+      clienteId:
+        'com.googleusercontent.apps.224210719062-afs2o76bs0u8p17l4ts0ib2b9tvddrm7',
+      forceCodeForRefreshToken: true,
+    },
+  },
 };
 
 export default config;
